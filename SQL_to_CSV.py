@@ -1,3 +1,7 @@
+### Author: Lynn
+### Project: WoW Data Engineering Pipeline
+### Goal: Script to read SQL queries and export data to CSV.
+
 from sqlalchemy import create_engine
 import pandas as pd
 from datetime import datetime
