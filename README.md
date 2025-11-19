@@ -25,6 +25,8 @@ _This was my first time creating a addon/mod for world of warcraft (for any game
 
 - The data was saved in a session based format using the WoW Saved Variables system.
 
+File/s: [SimpleLoginTracker_wow_addon.lua](https://github.com/lynnlennmor/WoW-Data-Engineering-Pipeline/blob/main/SimpleLoginTracker_wow_addon.lua) , [addong_saved_data_example](https://github.com/lynnlennmor/WoW-Data-Engineering-Pipeline/blob/main/addon_saved_data_example.lua)
+
 #### Step 2 - Python Data Translation & Processing
 _I tried to automate this process by creating a python script._
 
@@ -34,32 +36,39 @@ _I tried to automate this process by creating a python script._
   - Export the cleaned data to Excel for backup.
   - Insert the data into a SQL staging tables for further processing.
 
-#### Step 3 - SQL Database & ETL Architecture
+File/s: [export_WoW_to_SQL.py](https://github.com/lynnlennmor/WoW-Data-Engineering-Pipeline/blob/main/export_WoW_to_SQL.py)
+
+#### Step 3 - SQL Database, ETL Architecture & "Automation"
 _For this step I only wanted to create a simple database to store the data, focusing on the process of moving the data from a staging table to the actual tables used for analysis._
 
 - Designed and built a relational SQL database to store my gameplay data.
 - Created staging and production tables:
   - Staging tables used for initial ingestion.
 - Production tables optimized for analytics and reporting.
+- - Built Stored Procedures to:
+  - Move data from staging → production tables (automation to a degree).
+    - This was to make the process of moving data into multiple tables easier. Execute one query instead of 5.
 
-#### Step 4 - Data Transformation & Automation
+File/s: [Wow_data_table_creation_queries.sql](https://github.com/lynnlennmor/WoW-Data-Engineering-Pipeline/blob/main/Wow_data_table_creation_queries.sql) , [wow_SP_data_refresh.sql](https://github.com/lynnlennmor/WoW-Data-Engineering-Pipeline/blob/main/wow_SP_data_refresh.sql)
+
+#### Step 4 - Data Transformation
 _This step was for transforming the data from the tables into analytic ready datasets, data I could use for my visualization._
 
 - Wrote multiple SQL queries to convert raw gameplay logs into analytics-ready datasets.
-- Built Stored Procedures to:
-  - Automate the transformation pipeline.
-  - Move data from staging → production tables.
-    - This was to make the process of moving data into multiple tables easier. Execute one query instead of 5.
 - Added simple logic to handle errors.
+
+File/s: [wow_data_queries.sql](https://github.com/lynnlennmor/WoW-Data-Engineering-Pipeline/blob/main/Wow_data_queries.sql)
 
 #### Step 5 - Exporting Analytics Data to CSV (Python)
 _This was an extra step I had to make because I coulnd't find a simple (and free) way to directly get the data from my Database into Tableau._
 
 - Created a second Python script that:
   - Connects to the SQL database.
-  - Extracts cleaned and transformed tables.
+  - Extracts cleaned and transformed tables (with SQL queries, Stored Procedures in this case).
   - Outputs them to structured CSV files for use in Tableau.
 - Included automated "folder structure".
+
+File/s: [SQL_to_CSV.py](https://github.com/lynnlennmor/WoW-Data-Engineering-Pipeline/blob/main/SQL_to_CSV.py)
 
 #### Final Step  -  Tableau Visualization
 _I wanted to display my character data in some way, and I went for more of a storytelling focus since I knew the data would most definitely not be very exciting to anyone besides myself._
@@ -71,7 +80,7 @@ _I wanted to display my character data in some way, and I went for more of a sto
 
 - Connected Tableau to exported CSVs and refreshed data automatically through the pipeline.
 
-[View Tableau Dashboard]()
+[View Tableau Dashboard](https://public.tableau.com/app/profile/lynn.lennmor/viz/My_Unemployed_Warlock/Dagwood)
 
 ### Outcome
 - Addon/Mod scripting in Lua.
