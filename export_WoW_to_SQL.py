@@ -1,3 +1,8 @@
+### -- SimpleLoginTracker.lua
+### Author: Lynn
+### Project: WoW Data Engineering Pipeline
+### Goal: Script to read and export the saved data from the WoW addon and inserted into SQL
+
 import re
 import json
 import pandas as pd
@@ -156,4 +161,5 @@ with pd.ExcelWriter(output) as writer:
     df_combat_spell.to_excel(writer, sheet_name="CombatSpells", index=False)
     df_profession_spell.to_excel(writer, sheet_name="professionSpells", index=False)
 #df.to_excel(output, index=False)
+
 print(f"✅ Export complete! Saved as {output}")
